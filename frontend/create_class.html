@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Create Class</title>
+  </head>
+  <body>
+    <form action="create_class" method="post">
+      {% csrf_token %}
+      <input type="text" name="title" placeholder="Class Name">
+      <input type="text" name="desc" placeholder"Class Description">
+
+      <input type="submit" value="Publish">
+    </form>
+  </body>
+</html>

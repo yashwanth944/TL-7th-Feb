@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"href="{%static '/css/login.css' %}">
+    </head>
+    <body>
+       <nav>
+        <div class="logos">
+            <div class="brand">
+                <img src="./assets/tl.png" alt="">
+            </div>
+        </div>
+
+        <div class="label">
+            <ul>
+              <li><a href="/">Home</a></li>
+                <li><a>My Classes</a></li>
+                <li><a>Reports</a></li>
+                <li><a>Contact</a></li>
+                <li><img src="./assets/generic-avatar 3.png" alt="" /></li>
+            </ul>
+        </div>
+    </nav>
+         <div class="main-container flex" >
+             <div class="left">
+                 <h1>Technical support</h1>
+                 <p>People Support Is An Art</p>
+             </div>
+             <div class="two">
+               <form>
+                 {% csrf_token %}
+                 <input type="text" placeholder="Short Description" id="ticket_details">
+                 <select type="text" id="categories">
+                     <option name="welcome" value="category">Category</option>
+                     <option name="welcome" value="general">General</option>
+                 </select>
+
+                 <textarea id="ticket_disc" name="name" rows="10" cols="85" placeholder="Description"></textarea><br>
+                 <a href="#">please login before submit</a>
+             </div>
+         </div>
+        <div>
+            <button type='button' class="btn1" id="submit">Submit</button>
+            <button class="btn2">Cancel</button>
+        </div>
+        </form>
+             <div class="footer">
+        <ul>
+            <li>Terms and Conditions</li>
+            <li>|</li>
+            <li>Privacy Policy</li>
+            <li>|</li>
+            <li>Help</li>
+            <li>|</li>
+            <li>Tutor Labs Licenses</li>
+            <li>|</li>
+            <li>Partners</li>
+            <li>|</li>
+            <li class="flex">
+                <label for="Lang">Language</label>
+                <h4 id="Lang">English</h4>
+            </li>
+        </ul>
+    </div>
+        <script>
+        var submit = document.getElementById('submit')
+        submit.addEventListener('click',function(e){
+            var ticket_details = document.getElementById('ticket_details').value
+            var category = document.getElementById('categories').value
+            var ticket_desc = document.getElementById('ticket_disc').value
+            console.log(category)
+            console.log(ticket_details)
+            console.log(ticket_desc)
+            const postData = {
+                "ticket_details": ticket_details,
+                "category": category,
+                "ticket_desc": ticket_desc
+            }
+            console.log(JSON.stringify(postData))
+            fetch(`http://127.0.0.1:8000/allsupport/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                body: JSON.stringify(postData)
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                console.log(data);
+            });
+        });
+        </script>
+    </body>
+</html>
